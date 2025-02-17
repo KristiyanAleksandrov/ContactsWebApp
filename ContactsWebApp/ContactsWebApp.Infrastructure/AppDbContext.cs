@@ -11,7 +11,10 @@ namespace ContactsWebApp.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Contact>().HasKey(c => c.Id);
+            modelBuilder.Entity<Contact>().HasQueryFilter(c => !c.IsDeleted);
         }
     }
 }

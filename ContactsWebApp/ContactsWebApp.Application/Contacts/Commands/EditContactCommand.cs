@@ -1,6 +1,8 @@
-﻿namespace ContactsWebApp.Domain
+﻿using MediatR;
+
+namespace ContactsWebApp.Application.Contacts.Commands
 {
-    public class Contact
+    public class EditContactCommand : IRequest<Guid>
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
@@ -9,13 +11,5 @@
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string IBAN { get; set; }
-        public bool IsDeleted { get; private set; }
-        public DateTime? DeletedAt { get; private set; }
-
-        public void Delete()
-        {
-            IsDeleted = true;
-            DeletedAt = DateTime.UtcNow;
-        }
     }
 }
