@@ -1,7 +1,7 @@
 ﻿using ContactsWebApp.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContactsWebApp.Infrastructure
+namespace ContactsWebApp.Infrastructure.Persistence
 {
     public class AppDbContext : DbContext
     {

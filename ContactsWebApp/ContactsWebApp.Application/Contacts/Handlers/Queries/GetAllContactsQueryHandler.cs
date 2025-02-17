@@ -1,6 +1,7 @@
 ﻿using ContactsWebApp.Application.Contacts.Models;
 using ContactsWebApp.Application.Contacts.Queries;
-using ContactsWebApp.Infrastructure;
+using ContactsWebApp.Infrastructure.Persistence;
+using ContactsWebApp.Infrastructure.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,16 +9,18 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Queries
 {
     public class GetAllContactsQueryHandler : IRequestHandler<GetAllContactsQuery, IEnumerable<ContactDto>>
     {
-        private readonly AppDbContext _context;
+        private readonly AppDbContext context;
+        private readonly IEncryptionService encryptionService;
 
-        public GetAllContactsQueryHandler(AppDbContext context)
+        public GetAllContactsQueryHandler(AppDbContext context, IEncryptionService encryptionService)
         {
-            _context = context;
+            this.context = context;
+            this.encryptionService = encryptionService;
         }
 
         public async Task<IEnumerable<ContactDto>> Handle(GetAllContactsQuery request, CancellationToken cancellationToken)
         {
-            var contacts = await _context.Contacts
+            var contacts = await context.Contacts
                 .Select(c => new ContactDto
                 {
                     Id = c.Id,
@@ -26,7 +29,7 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Queries
                     DateOfBirth = c.DateOfBirth,
                     Address = c.Address,
                     PhoneNumber = c.PhoneNumber,
-                    IBAN = c.IBAN
+                    IBAN = encryptionService.Decrypt(c.IBAN)
                 })
                 .ToListAsync(cancellationToken);
 

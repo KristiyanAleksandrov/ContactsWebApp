@@ -9,8 +9,8 @@
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
         public string IBAN { get; set; }
-        public bool IsDeleted { get; private set; }
-        public DateTime? DeletedAt { get; private set; }
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedAt { get; set; }
 
         public void Delete()
         {

@@ -1,6 +1,6 @@
-using ContactsWebApp.Application.Contacts.Commands;
 using ContactsWebApp.Application.Contacts.Validators;
-using ContactsWebApp.Infrastructure;
+using ContactsWebApp.Infrastructure.Persistence;
+using ContactsWebApp.Infrastructure.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +18,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateContactCommandValidator>();
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+
+builder.Services.AddSingleton<IEncryptionService, AesEncryptionService>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
     Assembly.GetExecutingAssembly(),
