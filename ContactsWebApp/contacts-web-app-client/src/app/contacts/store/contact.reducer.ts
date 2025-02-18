@@ -6,7 +6,8 @@ import {
   loadContactsFailure,
   addContactSuccess,
   addContactFailure,
-  clearError
+  clearError,
+  deleteContactSuccess
 } from './contact.actions';
 
 export interface ContactState extends EntityState<Contact> {
@@ -33,6 +34,9 @@ export const contactReducer = createReducer(
   })),
   on(addContactSuccess, (state, { contact }) =>
     adapter.addOne(contact, { ...state, error: null })
+  ),
+  on(deleteContactSuccess, (state, { id }) =>
+    adapter.removeOne(id, state)
   ),
   on(clearError, (state) => ({ ...state, error: null })),
   on(addContactFailure, (state, { error }) => ({

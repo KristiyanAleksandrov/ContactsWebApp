@@ -9,6 +9,9 @@ import {
   addContact,
   addContactSuccess,
   addContactFailure,
+  deleteContact,
+  deleteContactSuccess,
+  deleteContactFailure,
 } from './contact.actions';
 import { MessageService } from 'primeng/api';
 
@@ -20,14 +23,29 @@ export class ContactEffects {
       mergeMap(() =>
         this.contactService.getContacts().pipe(
           map((contacts) => loadContactsSuccess({ contacts })),
-          tap(() => {
+          catchError(() => of({ type: '[Contact] Load Contacts Failed' }))
+        )
+      )
+    )
+  );
+
+  deleteContact$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteContact),
+      mergeMap(({ id }) =>
+        this.contactService.deleteContact(id).pipe(
+          map(() => {
             this.messageService.add({
               severity: 'success',
-              summary: 'Success',
-              detail: 'Contacts loaded successfully!',
+              summary: 'Deleted',
+              detail: 'Contact deleted successfully!',
             });
+            return deleteContactSuccess({ id });
           }),
-          catchError(() => of({ type: '[Contact] Load Contacts Failed' }))
+          mergeMap(() => of(loadContacts())),
+          catchError((error) => {
+            return of(deleteContactFailure({ error: error.message }));
+          })
         )
       )
     )
@@ -53,8 +71,8 @@ export class ContactEffects {
               : ['Failed to add contact. Please try again.'];
 
             const errorMessage = errorMessages.join(', ');
-            
-            return of(addContactFailure({error: errorMessage}));
+
+            return of(addContactFailure({ error: errorMessage }));
           })
         )
       )
