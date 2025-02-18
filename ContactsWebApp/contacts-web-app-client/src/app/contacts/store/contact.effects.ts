@@ -12,6 +12,9 @@ import {
   deleteContact,
   deleteContactSuccess,
   deleteContactFailure,
+  editContact,
+  editContactSuccess,
+  editContactFailure,
 } from './contact.actions';
 import { MessageService } from 'primeng/api';
 
@@ -73,6 +76,34 @@ export class ContactEffects {
             const errorMessage = errorMessages.join(', ');
 
             return of(addContactFailure({ error: errorMessage }));
+          })
+        )
+      )
+    )
+  );
+
+  editContact$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(editContact),
+      mergeMap(({ contact }) =>
+        this.contactService.editContact(contact).pipe(
+          map((editedContact) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Edited',
+              detail: 'Contact edited successfully!',
+            });
+            return editContactSuccess({ contact: editedContact });
+          }),
+          mergeMap(() => of(loadContacts())),
+          catchError((error) => {
+            const errorMessages = error?.error?.errors
+              ? Object.values(error.error.errors).flat()
+              : ['Failed to add contact. Please try again.'];
+
+            const errorMessage = errorMessages.join(', ');
+
+            return of(editContactFailure({ error: errorMessage }));
           })
         )
       )

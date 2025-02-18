@@ -39,4 +39,19 @@ export const deleteContactFailure = createAction(
   props<{ error: string }>()
 );
 
+export const editContact = createAction(
+  '[Contact] Edit Contact',
+  props<{ contact: Contact }>()
+);
+
+export const editContactSuccess = createAction(
+  '[Contact] Edit Contact Success',
+  props<{ contact: Contact }>()
+);
+
+export const editContactFailure = createAction(
+  '[Contact] Edit Contact Failure',
+  props<{ error: string }>()
+);
+
 export const clearError = createAction('[Contact] Clear Error');

@@ -1,6 +1,7 @@
 ﻿using ContactsWebApp.Application.Contacts.Commands;
 using ContactsWebApp.Domain;
 using ContactsWebApp.Infrastructure.Persistence;
+using ContactsWebApp.Infrastructure.Services;
 using MediatR;
 
 namespace ContactsWebApp.Application.Contacts.Handlers.Commands
@@ -8,10 +9,12 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Commands
     public class EditContactCommandHandler : IRequestHandler<EditContactCommand, Guid>
     {
         private readonly AppDbContext context;
+        private readonly IEncryptionService encryptionService;
 
-        public EditContactCommandHandler(AppDbContext context)
+        public EditContactCommandHandler(AppDbContext context, IEncryptionService encryptionService)
         {
             this.context = context;
+            this.encryptionService = encryptionService;
         }
 
         public async Task<Guid> Handle(EditContactCommand request, CancellationToken cancellationToken)
@@ -22,12 +25,14 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Commands
                 throw new Exception($"Contact with ID {request.Id} not found.");
             }
 
+            var encriptedIBAN = encryptionService.Encrypt(request.IBAN);
+
             contact.FirstName = request.FirstName;
             contact.Surname = request.Surname;
             contact.DateOfBirth = request.DateOfBirth;
             contact.Address = request.Address;
             contact.PhoneNumber = request.PhoneNumber;
-            contact.IBAN = request.IBAN;
+            contact.IBAN = encriptedIBAN;
 
             context.Contacts.Update(contact);
             await context.SaveChangesAsync(cancellationToken);
