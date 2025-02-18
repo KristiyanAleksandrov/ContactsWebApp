@@ -39,6 +39,15 @@ if (app.Environment.IsDevelopment())
         var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         dbContext.Database.Migrate();
     }
+    app.UseCors(options =>
+    options
+    .WithOrigins(
+        "http://localhost:4200"
+        )
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .WithExposedHeaders("Authorization")
+    .AllowCredentials());
     app.UseSwagger();
     app.UseSwaggerUI();
 }

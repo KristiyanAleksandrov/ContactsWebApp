@@ -1,8 +1,25 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
+import { ApplicationConfig } from '@angular/core';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { contactReducer } from './contacts/store/contact.reducer';
+import { ContactEffects } from './contacts/store/contact.effects';
+import { provideHttpClient } from '@angular/common/http';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
+  providers: [
+    provideStore({ contact: contactReducer }),
+    provideEffects([ContactEffects]),
+    provideStoreDevtools({ maxAge: 25 }),
+    provideHttpClient(),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+          preset: Aura
+      }
+  })
+  ],
 };

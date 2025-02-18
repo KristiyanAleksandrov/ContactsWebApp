@@ -1,0 +1,31 @@
+<p-button label="Add Contact" (click)="showDialog()"></p-button>
+
+<p-dialog header="Add Contact" [(visible)]="displayDialog" [modal]="true">
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <div class="p-field">
+      <label for="firstName">First Name</label>
+      <input id="firstName" pInputText formControlName="firstName" />
+    </div>
+    <div class="p-field">
+      <label for="surname">Surname</label>
+      <input id="surname" pInputText formControlName="surname" />
+    </div>
+    <div class="p-field">
+      <label for="dateOfBirth">Date of Birth</label>
+      <p-calendar id="dateOfBirth" formControlName="dateOfBirth"></p-calendar>
+    </div>
+    <div class="p-field">
+      <label for="address">Address</label>
+      <input id="address" pInputText formControlName="address" />
+    </div>
+    <div class="p-field">
+      <label for="phoneNumber">Phone Number</label>
+      <input id="phoneNumber" pInputText formControlName="phoneNumber" />
+    </div>
+    <div class="p-field">
+      <label for="iban">IBAN</label>
+      <input id="iban" pInputText formControlName="iban" />
+    </div>
+    <p-button type="submit" label="Save"></p-button>
+  </form>
+</p-dialog>
