@@ -1,6 +1,6 @@
 <p-button label="Add Contact" (click)="showDialog()"></p-button>
 
-<p-dialog header="Add Contact" [(visible)]="displayDialog" [modal]="true" [style]="{width: '50vw'}">
+<p-dialog header="Add Contact" [(visible)]="displayDialog" [modal]="true" [style]="{width: '50vw'}" id="addContactDialog">
   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
     <div class="p-field">
       <label for="firstName">First Name</label>

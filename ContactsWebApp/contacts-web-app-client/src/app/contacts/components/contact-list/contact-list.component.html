@@ -27,7 +27,7 @@
     </ng-template>
   </p-table>
 
-  <p-dialog header="Edit Contact" [(visible)]="displayEditDialog" [modal]="true" [style]="{width: '50vw'}">
+  <p-dialog header="Edit Contact" [(visible)]="displayEditDialog" [modal]="true" [style]="{width: '50vw'}" id="editContactDialog">
     <form *ngIf="selectedContact" [formGroup]="editForm" (ngSubmit)="onEdit()">
       <div class="p-field">
         <label for="firstName">First Name</label>
