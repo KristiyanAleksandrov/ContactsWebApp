@@ -1,0 +1,14 @@
+.p-field input, .p-field p-calendar {
+    width: 100%;
+  }
+  
+  ::ng-deep .p-dialog {
+    width: 50vw;
+    max-width: 600px; 
+  }
+
+.save-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }

@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { ContactListComponent } from './contacts/components/contact-list/contact-list.component';
 import { ContactFormComponent } from './contacts/components/contact-form/contact-form.component';
 import { ToastModule } from 'primeng/toast'; 
+import { GlobalErrorHandlerComponent } from './core/global-error-handler.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ContactListComponent, ContactFormComponent, ToastModule],
+  imports: [ContactListComponent, ContactFormComponent, ToastModule, GlobalErrorHandlerComponent],
   templateUrl: './app.component.html',
   styles: [
     `

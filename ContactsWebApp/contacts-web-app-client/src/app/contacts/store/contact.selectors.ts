@@ -9,3 +9,8 @@ export const selectAllContacts = createSelector(
   selectContactState,
   (state) => selectAll(state)
 );
+
+export const selectContactError = createSelector(
+    selectContactState,
+    (state: ContactState) => state.error
+  );

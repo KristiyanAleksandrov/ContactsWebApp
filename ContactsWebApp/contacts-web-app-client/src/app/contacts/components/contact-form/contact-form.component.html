@@ -1,6 +1,6 @@
 <p-button label="Add Contact" (click)="showDialog()"></p-button>
 
-<p-dialog header="Add Contact" [(visible)]="displayDialog" [modal]="true">
+<p-dialog header="Add Contact" [(visible)]="displayDialog" [modal]="true" [style]="{width: '50vw'}">
   <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
     <div class="p-field">
       <label for="firstName">First Name</label>
@@ -26,6 +26,9 @@
       <label for="iban">IBAN</label>
       <input id="iban" pInputText formControlName="iban" />
     </div>
-    <p-button type="submit" label="Save"></p-button>
+
+    <div class="save-button-container">
+      <p-button type="submit" label="Save"></p-button>
+    </div>
   </form>
 </p-dialog>
