@@ -6,11 +6,13 @@ import { Contact } from '../../models/contact.model';
 import { loadContacts } from '../../store/contact.actions';
 import { selectAllContacts } from '../../store/contact.selectors';
 import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-contact-list',
   standalone: true,
   imports: [
+    ButtonModule,
     CommonModule,
     TableModule, 
     DatePipe,   
