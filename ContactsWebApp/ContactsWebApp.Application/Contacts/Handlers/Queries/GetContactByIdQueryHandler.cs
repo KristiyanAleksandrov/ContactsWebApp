@@ -25,8 +25,6 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Queries
                 throw new Exception($"Contact with ID {request.Id} not found.");
             }
 
-            var decriptedIBAN = encryptionService.Decrypt(contact.IBAN);
-
             return new ContactDto
             {
                 Id = contact.Id,
@@ -35,7 +33,7 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Queries
                 DateOfBirth = contact.DateOfBirth,
                 Address = contact.Address,
                 PhoneNumber = contact.PhoneNumber,
-                IBAN = decriptedIBAN
+                IBAN = contact.IBAN
             };
         }
     }

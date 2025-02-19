@@ -29,7 +29,7 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Queries
                     DateOfBirth = c.DateOfBirth,
                     Address = c.Address,
                     PhoneNumber = c.PhoneNumber,
-                    IBAN = encryptionService.Decrypt(c.IBAN)
+                    IBAN = c.IBAN
                 })
                 .ToListAsync(cancellationToken);
 

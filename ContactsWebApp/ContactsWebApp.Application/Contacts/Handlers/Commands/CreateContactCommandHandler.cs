@@ -19,9 +19,7 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Commands
 
         public async Task<Guid> Handle(CreateContactCommand request, CancellationToken cancellationToken)
         {
-            var encriptedIBAN = encryptionService.Encrypt(request.IBAN);
-
-            var contact = new Contact(request.FirstName, request.Surname, request.DateOfBirth, request.Address, request.PhoneNumber, encriptedIBAN);
+            var contact = new Contact(request.FirstName, request.Surname, request.DateOfBirth, request.Address, request.PhoneNumber, request.IBAN);
 
             await context.Contacts.AddAsync(contact);
             await context.SaveChangesAsync(cancellationToken);
