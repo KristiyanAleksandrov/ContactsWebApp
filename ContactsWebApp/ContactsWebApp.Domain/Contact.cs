@@ -11,11 +11,5 @@
         public string IBAN { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAt { get; set; }
-
-        public void Delete()
-        {
-            IsDeleted = true;
-            DeletedAt = DateTime.UtcNow;
-        }
     }
 }
