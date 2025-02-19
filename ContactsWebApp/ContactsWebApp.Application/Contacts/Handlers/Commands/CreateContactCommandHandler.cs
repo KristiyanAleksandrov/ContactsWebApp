@@ -21,15 +21,7 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Commands
         {
             var encriptedIBAN = encryptionService.Encrypt(request.IBAN);
 
-            var contact = new Contact()
-            {
-                FirstName = request.FirstName,
-                Surname = request.Surname,
-                DateOfBirth = request.DateOfBirth,
-                Address = request.Address,
-                PhoneNumber = request.PhoneNumber,
-                IBAN = encriptedIBAN
-            };
+            var contact = new Contact(request.FirstName, request.Surname, request.DateOfBirth, request.Address, request.PhoneNumber, encriptedIBAN);
 
             await context.Contacts.AddAsync(contact);
             await context.SaveChangesAsync(cancellationToken);

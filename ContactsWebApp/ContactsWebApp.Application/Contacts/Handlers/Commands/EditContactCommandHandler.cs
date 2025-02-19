@@ -1,5 +1,4 @@
 ﻿using ContactsWebApp.Application.Contacts.Commands;
-using ContactsWebApp.Domain;
 using ContactsWebApp.Infrastructure.Persistence;
 using ContactsWebApp.Infrastructure.Services;
 using MediatR;
@@ -27,12 +26,7 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Commands
 
             var encriptedIBAN = encryptionService.Encrypt(request.IBAN);
 
-            contact.FirstName = request.FirstName;
-            contact.Surname = request.Surname;
-            contact.DateOfBirth = request.DateOfBirth;
-            contact.Address = request.Address;
-            contact.PhoneNumber = request.PhoneNumber;
-            contact.IBAN = encriptedIBAN;
+            contact.Edit(request.FirstName, request.Surname, request.DateOfBirth, request.Address, request.PhoneNumber, encriptedIBAN);
 
             context.Contacts.Update(contact);
             await context.SaveChangesAsync(cancellationToken);

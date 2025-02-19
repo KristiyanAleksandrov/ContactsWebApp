@@ -21,8 +21,7 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Commands
                 throw new Exception($"Contact with ID {request.Id} not found.");
             }
 
-            contact.IsDeleted = true;
-            contact.DeletedAt = DateTime.UtcNow;
+            contact.Delete();
 
             await context.SaveChangesAsync(cancellationToken);
         }
