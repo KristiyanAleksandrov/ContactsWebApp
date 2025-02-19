@@ -38,7 +38,6 @@ if (app.Environment.IsDevelopment())
     {
         var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         dbContext.Database.Migrate();
-        await SeedData.InitializeAsync(dbContext);
     }
     app.UseCors(options =>
     options

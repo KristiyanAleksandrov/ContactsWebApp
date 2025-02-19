@@ -24,7 +24,9 @@ namespace ContactsWebApp.Application.Contacts.Handlers.Commands
                 throw new Exception($"Contact with ID {request.Id} not found.");
             }
 
-            contact.Edit(request.FirstName, request.Surname, request.DateOfBirth, request.Address, request.PhoneNumber, request.IBAN);
+            var encriptedIBAN = encryptionService.Encrypt(request.IBAN);
+
+            contact.Edit(request.FirstName, request.Surname, request.DateOfBirth, request.Address, request.PhoneNumber, encriptedIBAN);
 
             context.Contacts.Update(contact);
             await context.SaveChangesAsync(cancellationToken);
